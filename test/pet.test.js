@@ -50,3 +50,26 @@ describe('growUp', () => {
         expect(testPet.fitness).toBe(1);
     })
 })
+
+describe('walk', () => {
+    it('should increase fitness by 4', () => {
+        const testPet = new Pet();
+        testPet.growUp();
+        testPet.growUp();
+        testPet.walk();
+        expect(testPet.fitness).toBe(8);
+    })
+
+    it('should have a max health of 10', () => {
+        const testPet = new Pet();
+        testPet.walk();
+        expect(testPet.fitness).toBe(10);
+        testPet.growUp();
+        testPet.walk();
+        expect(testPet.fitness).toBe(10);
+        testPet.growUp();
+        testPet.growUp();
+        testPet.walk();
+        expect(testPet.fitness).toBe(8);
+    })
+})

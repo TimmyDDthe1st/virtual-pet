@@ -15,6 +15,17 @@ class Pet {
         this.hunger = this.hunger + HUNGER_FACTOR;
         this.fitness = this.fitness - FITNESS_FACTOR;
     }
+
+    walk() {
+        const WALK_FACTOR = 4;
+        const MAX_FITNESS = 10;
+
+        this.fitness = this.fitness + WALK_FACTOR;
+
+        if (this.fitness > MAX_FITNESS) {
+            this.fitness = MAX_FITNESS;
+        } 
+    }
 }
 
 module.exports = Pet;

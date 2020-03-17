@@ -1,6 +1,6 @@
 const Pet = require('../src/pet');
 
-describe('pet', () => {
+describe('constructor', () => {
     it('should return a new pet with a name', () => {
         expect(new Pet()).toBeInstanceOf(Object);
         expect(new Pet().name).toBe("An unloved pet");
@@ -8,10 +8,20 @@ describe('pet', () => {
     }),
 
     it('should return a new pet with an age', () => {
-        const myPet = new Pet();
-        expect(myPet.age).toBe(0);
-        myPet.growUp();
-        myPet.growUp();
-        expect(myPet.age).toBe(2);
+        expect(new Pet().age).toBe(0);
+    })
+})
+
+
+
+describe('growUp', () => {
+    it('should make the pet grow', () => {
+        const testPet = new Pet();
+        testPet.growUp();
+        expect(testPet.age).toBe(1);
+        testPet.growUp();
+        testPet.growUp();
+        testPet.growUp();
+        expect(testPet.age).toBe(4);
     })
 })

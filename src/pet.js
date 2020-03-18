@@ -26,6 +26,17 @@ class Pet {
             this.fitness = MAX_FITNESS;
         } 
     }
+
+    feed() {
+        const FEED_FACTOR = 3;
+        const MIN_HUNGER = 0;
+
+        this.hunger = this.hunger - FEED_FACTOR;
+
+        if (this.hunger < MIN_HUNGER) {
+            this.hunger = MIN_HUNGER;
+        }
+    }
 }
 
 module.exports = Pet;

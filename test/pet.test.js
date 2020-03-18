@@ -73,3 +73,25 @@ describe('walk', () => {
         expect(testPet.fitness).toBe(8);
     })
 })
+
+describe('feed', () => {
+    it('should decrease hunger by 3', () => {
+        const testPet = new Pet();
+        testPet.growUp();
+        testPet.feed();
+        expect(testPet.hunger).toBe(2);
+    })
+
+    it('should have a minimum hunger of 0', () => {
+        const testPet = new Pet();
+        testPet.growUp();
+        testPet.feed();
+        testPet.feed();
+        expect(testPet.hunger).toBe(0);
+        testPet.feed();
+        testPet.feed();
+        testPet.feed();
+        testPet.feed();
+        expect(testPet.hunger).toBe(0);
+    })
+})

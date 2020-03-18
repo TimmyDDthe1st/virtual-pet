@@ -30,11 +30,28 @@ class Pet {
     feed() {
         const FEED_FACTOR = 3;
         const MIN_HUNGER = 0;
-
         this.hunger = this.hunger - FEED_FACTOR;
 
         if (this.hunger < MIN_HUNGER) {
             this.hunger = MIN_HUNGER;
+        }
+    }
+
+    checkUp() {
+        const FITNESS_THRESHOLD = 3;
+        const HUNGER_THRESHOLD = 5;
+
+        if (this.fitness <= FITNESS_THRESHOLD && this.hunger >= HUNGER_THRESHOLD) {
+            return "I need a walk AND I am hungry";
+        }
+
+
+        if (this.hunger >= HUNGER_THRESHOLD) {
+            return "I am hungry";
+        }
+
+        if (this.fitness <= FITNESS_THRESHOLD) {
+            return "I need a walk";
         }
     }
 }

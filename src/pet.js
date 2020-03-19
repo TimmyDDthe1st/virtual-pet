@@ -10,7 +10,7 @@ class Pet {
         const MAX_AGE = 30;
         const MAX_HUNGER = 10;
         const MIN_FITNESS = 0;
-        
+
         return this.age < MAX_AGE && this.hunger < MAX_HUNGER && this.fitness > MIN_FITNESS;
     }
 

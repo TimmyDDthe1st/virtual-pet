@@ -122,6 +122,9 @@ describe('isalive', () => {
     })
 
     it('returns false when age > 30 hunger === 10 & fitness === 0', () => {
-        expect(testPet.isAlive).toBe(true);
+        testPet.age = 30;
+        testPet.hunger = 10;
+        testPet.fitness = 0;
+        expect(testPet.isAlive).toBe(false);
     })
 })

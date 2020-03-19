@@ -1,5 +1,11 @@
 const Pet = require('../src/pet');
 
+let testPet;
+
+beforeEach(() => {
+    testPet = new Pet();
+  });
+
 describe('constructor', () => {
     it('should return a new pet with a name', () => {
         expect(new Pet()).toBeInstanceOf(Object);
@@ -22,7 +28,6 @@ describe('constructor', () => {
 
 describe('growUp', () => {
     it('should make the pet grow', () => {
-        const testPet = new Pet();
         testPet.growUp();
         expect(testPet.age).toBe(1);
         testPet.growUp();
@@ -32,7 +37,6 @@ describe('growUp', () => {
     })
 
     it('should make the pet hunger increase', () => {
-        const testPet = new Pet();
         testPet.growUp();
         expect(testPet.hunger).toBe(5);
         testPet.growUp();
@@ -42,7 +46,6 @@ describe('growUp', () => {
     })
 
     it('should make the pet fitness decrease', () => {
-        const testPet = new Pet();
         testPet.growUp();
         expect(testPet.fitness).toBe(7);
         testPet.growUp();
@@ -53,7 +56,6 @@ describe('growUp', () => {
 
 describe('walk', () => {
     it('should increase fitness by 4', () => {
-        const testPet = new Pet();
         testPet.growUp();
         testPet.growUp();
         testPet.walk();
@@ -61,7 +63,6 @@ describe('walk', () => {
     })
 
     it('should have a max health of 10', () => {
-        const testPet = new Pet();
         testPet.walk();
         expect(testPet.fitness).toBe(10);
         testPet.growUp();
@@ -76,14 +77,12 @@ describe('walk', () => {
 
 describe('feed', () => {
     it('should decrease hunger by 3', () => {
-        const testPet = new Pet();
         testPet.growUp();
         testPet.feed();
         expect(testPet.hunger).toBe(2);
     })
 
     it('should have a minimum hunger of 0', () => {
-        const testPet = new Pet();
         testPet.growUp();
         testPet.feed();
         testPet.feed();
@@ -101,22 +100,28 @@ describe('checkup', () => {
     const fitnessTestValue = 2;
 
     it('should return "I need a walk", when fitness < 3', () => {
-        const testPet = new Pet();
         testPet.fitness = fitnessTestValue;
         expect(testPet.checkUp()).toBe('I need a walk');
     })
 
     it('should return "I am hungry", when hunger >= 5', () => {
-        const testPet = new Pet();
         testPet.hunger = hungerTestValue;
         expect(testPet.checkUp()).toBe('I am hungry');
     })
 
     it('should return "I am hungry AND I need a walk", when hunger >= 5 AND fitness <= 3', () => {
-        const testPet = new Pet();
-        testPet.growUp();
-        testPet.growUp();
-        testPet.growUp();
+        testPet.hunger = 6;
+        testPet.fitness = 2;
         expect(testPet.checkUp()).toBe('I need a walk AND I am hungry');
+    })
+})
+
+describe('isalive', () => {
+    it('returns true when age < 30 hunger < 10 & fitness > 0', () => {
+        expect(testPet.isAlive).toBe(true);
+    })
+
+    it('returns false when age > 30 hunger === 10 & fitness === 0', () => {
+        expect(testPet.isAlive).toBe(true);
     })
 })

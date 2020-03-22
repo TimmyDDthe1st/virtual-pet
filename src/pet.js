@@ -28,6 +28,10 @@ class Pet {
         const WALK_FACTOR = 4;
         const MAX_FITNESS = 10;
 
+        if(!this.isAlive){
+            throw new Error('Your pet is no longer alive :(');
+        }
+
         this.fitness = this.fitness + WALK_FACTOR;
 
         if (this.fitness > MAX_FITNESS) {
@@ -48,7 +52,10 @@ class Pet {
     checkUp() {
         const FITNESS_THRESHOLD = 3;
         const HUNGER_THRESHOLD = 5;
+        const DEAD_MESSAGE = 'Your pet is no longer alive :(';
 
+        if(!this.isAlive) { return DEAD_MESSAGE }
+        
         if (this.fitness <= FITNESS_THRESHOLD && this.hunger >= HUNGER_THRESHOLD) {
             return "I need a walk AND I am hungry";
         }

@@ -56,22 +56,25 @@ describe('growUp', () => {
 
 describe('walk', () => {
     it('should increase fitness by 4', () => {
-        testPet.growUp();
-        testPet.growUp();
+        testPet.fitness = 5;
+        testPet.walk();
+        expect(testPet.fitness).toBe(9);
+    })
+
+    it('should have a max fitness of 10', () => {
+        testPet.walk();
+        expect(testPet.fitness).toBe(10);
+        testPet.fitness = 8;
+        testPet.walk();
+        expect(testPet.fitness).toBe(10);
+        testPet.fitness = 4;
         testPet.walk();
         expect(testPet.fitness).toBe(8);
     })
 
-    it('should have a max health of 10', () => {
-        testPet.walk();
-        expect(testPet.fitness).toBe(10);
-        testPet.growUp();
-        testPet.walk();
-        expect(testPet.fitness).toBe(10);
-        testPet.growUp();
-        testPet.growUp();
-        testPet.walk();
-        expect(testPet.fitness).toBe(8);
+    it('should throw an exception with "Your pet is no longer alive :(", if dead', () => {
+        testPet.age = 30;
+        expect(() => testPet.walk()).toThrow('Your pet is no longer alive :(');
     })
 })
 
@@ -96,23 +99,30 @@ describe('feed', () => {
 })
 
 describe('checkup', () => {
-    const hungerTestValue = 6;
-    const fitnessTestValue = 2;
+    const HUNGER_TEST_VALUE = 6;
+    const FITNESS_TEST_VALUE = 2;
 
     it('should return "I need a walk", when fitness < 3', () => {
-        testPet.fitness = fitnessTestValue;
+        testPet.fitness = FITNESS_TEST_VALUE;
         expect(testPet.checkUp()).toBe('I need a walk');
     })
 
     it('should return "I am hungry", when hunger >= 5', () => {
-        testPet.hunger = hungerTestValue;
+        testPet.hunger = HUNGER_TEST_VALUE;
         expect(testPet.checkUp()).toBe('I am hungry');
     })
 
     it('should return "I am hungry AND I need a walk", when hunger >= 5 AND fitness <= 3', () => {
-        testPet.hunger = 6;
-        testPet.fitness = 2;
+        testPet.hunger = HUNGER_TEST_VALUE;
+        testPet.fitness = FITNESS_TEST_VALUE;
         expect(testPet.checkUp()).toBe('I need a walk AND I am hungry');
+    })
+
+    it('should return "Your pet is no longer alive :(" when age > 30 hunger === 10 & fitness === 0', () => {
+        testPet.age = 31;
+        testPet.hunger = 10;
+        testPet.fitness = 0;
+        expect(testPet.checkUp()).toBe('Your pet is no longer alive :(');
     })
 })
 

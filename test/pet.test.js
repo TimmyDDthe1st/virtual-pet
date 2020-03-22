@@ -2,6 +2,8 @@ const Pet = require('../src/pet');
 
 let testPet;
 
+const deadMessage = "Your pet is no longer alive :("
+
 beforeEach(() => {
     testPet = new Pet();
   });
@@ -30,27 +32,21 @@ describe('growUp', () => {
     it('should make the pet grow', () => {
         testPet.growUp();
         expect(testPet.age).toBe(1);
-        testPet.growUp();
-        testPet.growUp();
-        testPet.growUp();
-        expect(testPet.age).toBe(4);
     })
 
     it('should make the pet hunger increase', () => {
         testPet.growUp();
         expect(testPet.hunger).toBe(5);
-        testPet.growUp();
-        testPet.growUp();
-        testPet.growUp();
-        expect(testPet.hunger).toBe(20);
     })
 
     it('should make the pet fitness decrease', () => {
         testPet.growUp();
         expect(testPet.fitness).toBe(7);
-        testPet.growUp();
-        testPet.growUp();
-        expect(testPet.fitness).toBe(1);
+    })
+
+    it('should throw an exception with "Your pet is no longer alive :(", if dead', () => {
+        testPet.age = 30;
+        expect(() => testPet.growUp()).toThrow(deadMessage);
     })
 })
 
@@ -74,7 +70,7 @@ describe('walk', () => {
 
     it('should throw an exception with "Your pet is no longer alive :(", if dead', () => {
         testPet.age = 30;
-        expect(() => testPet.walk()).toThrow('Your pet is no longer alive :(');
+        expect(() => testPet.walk()).toThrow(deadMessage);
     })
 })
 
@@ -95,6 +91,11 @@ describe('feed', () => {
         testPet.feed();
         testPet.feed();
         expect(testPet.hunger).toBe(0);
+    })
+
+    it('should throw an exception with "Your pet is no longer alive :(", if dead', () => {
+        testPet.age = 30;
+        expect(() => testPet.feed()).toThrow(deadMessage)
     })
 })
 
@@ -122,7 +123,7 @@ describe('checkup', () => {
         testPet.age = 31;
         testPet.hunger = 10;
         testPet.fitness = 0;
-        expect(testPet.checkUp()).toBe('Your pet is no longer alive :(');
+        expect(testPet.checkUp()).toBe(deadMessage);
     })
 })
 

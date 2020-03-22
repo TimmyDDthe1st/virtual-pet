@@ -1,4 +1,4 @@
-class Pet {
+class Pet {    
     constructor(name) {
         this.name = name || "An unloved pet";
         this.age = 0;
@@ -14,10 +14,20 @@ class Pet {
         return this.age < MAX_AGE && this.hunger < MAX_HUNGER && this.fitness > MIN_FITNESS;
     }
 
+    get deadMessage() {
+        const DEAD_MESSAGE = 'Your pet is no longer alive :(';
+
+        return DEAD_MESSAGE;
+    }
+
     growUp() {
         const AGING_FACTOR = 1;
         const HUNGER_FACTOR = 5;
         const FITNESS_FACTOR = 3;
+        
+        if(!this.isAlive){
+            throw new Error(this.deadMessage);
+        }
 
         this.age = this.age + AGING_FACTOR;
         this.hunger = this.hunger + HUNGER_FACTOR;
@@ -29,7 +39,7 @@ class Pet {
         const MAX_FITNESS = 10;
 
         if(!this.isAlive){
-            throw new Error('Your pet is no longer alive :(');
+            throw new Error(this.deadMessage);
         }
 
         this.fitness = this.fitness + WALK_FACTOR;
@@ -44,6 +54,10 @@ class Pet {
         const MIN_HUNGER = 0;
         this.hunger = this.hunger - FEED_FACTOR;
 
+        if(!this.isAlive){
+            throw new Error(this.deadMessage);
+        }
+
         if (this.hunger < MIN_HUNGER) {
             this.hunger = MIN_HUNGER;
         }
@@ -52,9 +66,8 @@ class Pet {
     checkUp() {
         const FITNESS_THRESHOLD = 3;
         const HUNGER_THRESHOLD = 5;
-        const DEAD_MESSAGE = 'Your pet is no longer alive :(';
 
-        if(!this.isAlive) { return DEAD_MESSAGE }
+        if(!this.isAlive) { return this.deadMessage }
         
         if (this.fitness <= FITNESS_THRESHOLD && this.hunger >= HUNGER_THRESHOLD) {
             return "I need a walk AND I am hungry";

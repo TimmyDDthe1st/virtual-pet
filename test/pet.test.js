@@ -141,11 +141,25 @@ describe('isalive', () => {
 })
 
 describe('havebaby', () => {
-    it('should push a pet object into the children array', () => {
+    it('should have an array for children', () => {
         const parent = testPet;
-        const child = new Pet ('Fanny');
 
-        parent.haveBaby(child);
         expect(Array.isArray(parent.children)).toBe(true);
+    })
+
+    it('should have Fanny as the first child of the children array', () => {
+        const parent = testPet;
+
+        parent.haveBaby('Fanny');
+        expect(parent.children[0].name).toBe('Fanny');
+    })
+
+    it('should be able to be fed', () => {
+        const parent = testPet;
+
+        parent.haveBaby('Fanny');
+        parent.children[0].hunger = 6;
+        parent.children[0].feed();
+        expect(parent.children[0].hunger).toBe(3);
     })
 })

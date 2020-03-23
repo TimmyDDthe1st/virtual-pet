@@ -4,6 +4,7 @@ class Pet {
         this.age = 0;
         this.hunger = 0;
         this.fitness = 10;
+        this.children = [];
     }
 
     get isAlive() {
@@ -81,6 +82,10 @@ class Pet {
         if (this.fitness <= FITNESS_THRESHOLD) {
             return "I need a walk";
         }
+    }
+
+    haveBaby(child) {
+        this.children.push(new Pet(child));
     }
 }
 

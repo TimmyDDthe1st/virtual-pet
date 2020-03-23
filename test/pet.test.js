@@ -139,3 +139,13 @@ describe('isalive', () => {
         expect(testPet.isAlive).toBe(false);
     })
 })
+
+describe('havebaby', () => {
+    it('should push a pet object into the children array', () => {
+        const parent = testPet;
+        const child = new Pet ('Fanny');
+
+        parent.haveBaby(child);
+        expect(Array.isArray(parent.children)).toBe(true);
+    })
+})

@@ -4,6 +4,7 @@ class Pet {
         this.age = 0;
         this.hunger = 0;
         this.fitness = 10;
+        this.poop = 0;
         this.children = [];
     }
 
@@ -52,12 +53,15 @@ class Pet {
 
     feed() {
         const FEED_FACTOR = 3;
+        const POOP_FACTOR = 0.25;
         const MIN_HUNGER = 0;
-        this.hunger = this.hunger - FEED_FACTOR;
 
         if(!this.isAlive){
             throw new Error(this.deadMessage);
         }
+
+        this.hunger = this.hunger - FEED_FACTOR;
+        this.poop = this.poop + POOP_FACTOR;
 
         if (this.hunger < MIN_HUNGER) {
             this.hunger = MIN_HUNGER;
@@ -74,13 +78,27 @@ class Pet {
             return "I need a walk AND I am hungry";
         }
 
-
         if (this.hunger >= HUNGER_THRESHOLD) {
             return "I am hungry";
         }
 
         if (this.fitness <= FITNESS_THRESHOLD) {
             return "I need a walk";
+        }
+
+        if(this.poop === 1) {
+            return "I need to poop";
+        }
+    }
+
+    goPoop() {
+        const POOP_FACTOR = 1;
+        const MIN_POOP = 0;
+
+        this.poop = this.poop -= POOP_FACTOR;
+
+        if(this.poop < MIN_POOP) {
+            this.poop = MIN_POOP
         }
     }
 

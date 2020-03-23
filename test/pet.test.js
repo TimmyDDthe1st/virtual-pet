@@ -125,6 +125,11 @@ describe('checkup', () => {
         testPet.fitness = 0;
         expect(testPet.checkUp()).toBe(deadMessage);
     })
+
+    it('should return "I need to poop" when poop is === 1', () => {
+        testPet.poop = 1;
+        expect(testPet.checkUp()).toBe('I need to poop');
+    })
 })
 
 describe('isalive', () => {
@@ -161,5 +166,24 @@ describe('havebaby', () => {
         parent.children[0].hunger = 6;
         parent.children[0].feed();
         expect(parent.children[0].hunger).toBe(3);
+    })
+})
+
+describe('poop', () => {
+    it('should accumulate poop', () => {
+        testPet.feed();
+        expect(testPet.poop).toBe(0.25);
+        testPet.feed();
+        testPet.feed();
+        testPet.feed();
+        expect(testPet.poop).toBe(1);
+    })
+
+    it('should decrease poop', () => {
+        testPet.poop = 1;
+        testPet.goPoop();
+        expect(testPet.poop).toBe(0);
+        testPet.goPoop();
+        expect(testPet.poop).toBe(0);
     })
 })

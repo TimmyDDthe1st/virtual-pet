@@ -1,6 +1,6 @@
 # Virtual Pet
 
-The only pet you'll need right now, disease, scent and poop (for now) free!
+The only pet you'll need right now, disease, scent and ~~poop~~ allergy free!
 
 ## Getting Started
 

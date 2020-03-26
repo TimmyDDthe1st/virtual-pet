@@ -33,10 +33,7 @@ describe('growUp', () => {
         testPet.growUp();
         expect(testPet.age).toBe(1);
         testPet.growUp();
-        testPet.growUp();
-        testPet.growUp();
-        testPet.growUp();
-        expect(testPet.age).toBe(5);
+        expect(testPet.age).toBe(2);
     })
 
     it('should make the pet hunger increase by 5', () => {
@@ -48,12 +45,13 @@ describe('growUp', () => {
         testPet.growUp();
         expect(testPet.fitness).toBe(7);
         testPet.growUp();
-        testPet.growUp();
-        expect(testPet.fitness).toBe(1);
+        expect(testPet.fitness).toBe(4);
     })
 
     it('should throw an exception with "Your pet is no longer alive :(", if dead', () => {
         testPet.age = 31;
+        testPet.hunger = 11;
+        testPet.fitness = 0;
         expect(() => testPet.growUp()).toThrow(deadMessage);
     })
 })
@@ -78,7 +76,7 @@ describe('walk', () => {
     })
 
     it('should throw an exception with "Your pet is no longer alive :(", if dead', () => {
-        testPet.age = 30;
+        testPet.fitness = 0;
         expect(() => testPet.walk()).toThrow(deadMessage);
     })
 })
@@ -160,7 +158,17 @@ describe('checkup', () => {
 })
 
 describe('isalive', () => {
-    it('returns true when age < 30 hunger < 10 & fitness > 0', () => {
+    it('returns true when age < 30', () => {
+        testPet.age = 29;
+        expect(testPet.isAlive).toBe(true);
+    })
+
+    it('returns true when hunger < 10', () => {
+        testPet.hunger = 9;
+        expect(testPet.isAlive).toBe(true);
+    })
+
+    it('returns true when fitness > 0', () => {
         expect(testPet.isAlive).toBe(true);
     })
 

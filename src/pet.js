@@ -13,7 +13,7 @@ class Pet {
         const MAX_HUNGER = 10;
         const MIN_FITNESS = 0;
 
-        return this.age < MAX_AGE || this.hunger < MAX_HUNGER || this.fitness > MIN_FITNESS;
+        return this.age <= MAX_AGE && this.hunger < MAX_HUNGER && this.fitness > MIN_FITNESS;
     }
 
     get deadMessage() {
@@ -24,7 +24,6 @@ class Pet {
         if (!this.isAlive) {
             throw new Error(this.deadMessage);
         }
-        
         return;
     }
 
@@ -62,8 +61,8 @@ class Pet {
 
         this.isAliveCheck();
 
-        this.hunger = this.hunger - FEED_FACTOR;
-        this.poop = this.poop + POOP_FACTOR;
+        this.hunger -= FEED_FACTOR;
+        this.poop += POOP_FACTOR;
 
         if (this.hunger < MIN_HUNGER) {
             this.hunger = MIN_HUNGER;
@@ -74,7 +73,9 @@ class Pet {
         const FITNESS_THRESHOLD = 3;
         const HUNGER_THRESHOLD = 5;
 
-        this.isAliveCheck();
+        if(!this.isAlive) {
+            return this.deadMessage;
+        }
         
         if (this.fitness <= FITNESS_THRESHOLD && this.hunger >= HUNGER_THRESHOLD) {
             return "I need a walk AND I am hungry";

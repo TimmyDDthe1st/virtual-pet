@@ -13,13 +13,17 @@ class Pet {
         const MAX_HUNGER = 10;
         const MIN_FITNESS = 0;
 
-        return this.age < MAX_AGE && this.hunger < MAX_HUNGER && this.fitness > MIN_FITNESS;
+        return this.age < MAX_AGE || this.hunger < MAX_HUNGER || this.fitness > MIN_FITNESS;
     }
 
     get deadMessage() {
-        const DEAD_MESSAGE = 'Your pet is no longer alive :(';
+        return 'Your pet is no longer alive :(';
+    }
 
-        return DEAD_MESSAGE;
+    isAliveCheck() {
+        if (!this.isAlive) {
+            throw new Error(this.deadMessage);
+        }
     }
 
     growUp() {
@@ -27,22 +31,20 @@ class Pet {
         const HUNGER_FACTOR = 5;
         const FITNESS_FACTOR = 3;
         
-        if(!this.isAlive){
-            throw new Error(this.deadMessage);
-        }
+        this.isAliveCheck();
 
-        this.age = this.age + AGING_FACTOR;
-        this.hunger = this.hunger + HUNGER_FACTOR;
-        this.fitness = this.fitness - FITNESS_FACTOR;
+        this.age += AGING_FACTOR;
+        this.hunger += HUNGER_FACTOR;
+        this.fitness -= FITNESS_FACTOR;
     }
+
+
 
     walk() {
         const WALK_FACTOR = 4;
         const MAX_FITNESS = 10;
 
-        if(!this.isAlive){
-            throw new Error(this.deadMessage);
-        }
+        this.isAliveCheck();
 
         this.fitness = this.fitness + WALK_FACTOR;
 
@@ -56,9 +58,7 @@ class Pet {
         const POOP_FACTOR = 0.25;
         const MIN_HUNGER = 0;
 
-        if(!this.isAlive){
-            throw new Error(this.deadMessage);
-        }
+        this.isAliveCheck();
 
         this.hunger = this.hunger - FEED_FACTOR;
         this.poop = this.poop + POOP_FACTOR;
@@ -72,7 +72,7 @@ class Pet {
         const FITNESS_THRESHOLD = 3;
         const HUNGER_THRESHOLD = 5;
 
-        if(!this.isAlive) { return this.deadMessage }
+        this.isAliveCheck();
         
         if (this.fitness <= FITNESS_THRESHOLD && this.hunger >= HUNGER_THRESHOLD) {
             return "I need a walk AND I am hungry";
@@ -95,7 +95,9 @@ class Pet {
         const POOP_FACTOR = 1;
         const MIN_POOP = 0;
 
-        this.poop = this.poop -= POOP_FACTOR;
+        this.isAliveCheck();
+
+        this.poop -= POOP_FACTOR;
 
         if(this.poop < MIN_POOP) {
             this.poop = MIN_POOP
@@ -103,6 +105,9 @@ class Pet {
     }
 
     haveBaby(child) {
+
+        this.isAliveCheck();
+
         this.children.push(new Pet(child));
     }
 }

@@ -24,6 +24,8 @@ class Pet {
         if (!this.isAlive) {
             throw new Error(this.deadMessage);
         }
+        
+        return;
     }
 
     growUp() {
